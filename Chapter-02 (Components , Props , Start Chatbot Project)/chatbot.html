@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatBot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      
+        function ChatInput() {
+            return (
+                <>    
+                    <input type="text" placeholder="Sand Massage to ChatBot" size='40'/>
+                    <button>Submit</button>
+                </>    
+        )    
+        }
+
+        function ChatMassage(props){
+            const {massage} = props;
+            const {sander} = props;
+                
+            return (
+                
+                <div>
+                    {sander === 'robot' && <img src="robot.png" width="50"/>}
+                    {massage}
+                    {sander === 'user' && <img src="user.png" width="50"/>}
+                        
+                </div>
+            )
+        }
+
+        function App(){
+            return (
+                <>
+                <ChatInput/>
+                <ChatMassage massage="hello I want a help" sander='user'/>
+                <ChatMassage massage="flip a coin" sander='robot'/>
+                <ChatMassage massage="head is my" sander='user'/>
+                <ChatMassage massage="i lost" sander='robot'/>
+                </>
+            )
+        }
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App/>);
+    </script>
+  </body>
+</html>
