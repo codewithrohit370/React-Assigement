@@ -12,16 +12,37 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
       
-        function ChatInput() {
+        function ChatInput({sandMassages , setMassageFunction}) {
+            const [inputText , setInputText] = React.useState('')
+            
+            function saveInputText(event){
+                setInputText(event.target.value)
+            }
+
+            function sandMassgae(){
+
+            setMassageFunction([
+                ...sandMassages , {
+                    massage:inputText,
+                    sander:"user",
+                    id:crypto.randomUUID()
+                }
+            ])
+
+            setInputText('')
+          
+        }
+
+
             return (
                 <>    
-                    <input type="text" placeholder="Sand Massage to ChatBot" size='40'/>
-                    <button>Submit</button>
+                    <input type="text" placeholder="Sand Massage to ChatBot" size='40' onChange={saveInputText} value={inputText}/>
+                    <button onClick={sandMassgae}>Submit</button>
                 </>    
         )    
         }
 
-        function ChatMassage(props){
+        function ChatMassageHtml(props){
             const {massage} = props;
             const {sander} = props;
                 
@@ -36,14 +57,52 @@
             )
         }
 
+        function ChatMassageData({sandMassages}){ 
+
+        return (
+            <>
+                {sandMassages.map((ChatMassage)=>{
+                         return (
+                                <ChatMassageHtml 
+                                    massage={ChatMassage.massage}
+                                    sander={ChatMassage.sander}
+                                    key={ChatMassage.id}
+                                />
+                            )
+                })}
+            </>
+        )
+
+        }
+       
+
         function App(){
+            const [sandMassages , setMassageFunction] = React.useState([{
+            massage:"hello I want a help",
+            sander:"user",
+            id:"id1"
+        },
+        {
+            massage:"flip a coin",
+            sander:"robot",
+            id:"id2"
+        },
+        {
+            massage:"head is my",
+            sander:"user",
+            id:"id3"
+        },
+        {
+            massage:"i Lost",
+            sander:"robot",
+            id:"id4"
+        }    
+        ]); 
+            
             return (
                 <>
-                <ChatInput/>
-                <ChatMassage massage="hello I want a help" sander='user'/>
-                <ChatMassage massage="flip a coin" sander='robot'/>
-                <ChatMassage massage="head is my" sander='user'/>
-                <ChatMassage massage="i lost" sander='robot'/>
+                    <ChatInput sandMassages={sandMassages} setMassageFunction={setMassageFunction}/>
+                    <ChatMassageData sandMassages={sandMassages} />
                 </>
             )
         }
