@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-commerce app</title>
 </head>
+
 <body>
     <div class="js-container"></div>
 
@@ -12,26 +14,26 @@
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
-    
+
 
     <script type="text/babel">
 
-        function ProductDatils(props){
-            const {productName} = props
-            const {productPrice} = props
-            const {discountPrice} = props
-            const {ImageSrc} = props
+        function ProductDatils(props) {
+            const { productName } = props
+            const { productPrice } = props
+            const { discountPrice } = props
+            const { ImageSrc } = props
             const result = discountPrice ? (<>
-            <del>Price : ${productPrice}</del>
-            <p>Discount : ${discountPrice}</p>
+                <del>Price : ${productPrice}</del>
+                <p>Discount : ${discountPrice}</p>
             </>) : (
                 <p> Price: ${productPrice}</p>
             )
 
             return (
-                <>  
+                <>
                     <div>
-                        <img src={ImageSrc} width="90"/>
+                        <img src={ImageSrc} width="90" />
                     </div>
                     <p>{productName}</p>
                     {result}
@@ -40,33 +42,34 @@
             )
         }
 
-        function App(){
+        function App() {
             return (
                 <>
-                    <ProductDatils 
-                    productName="Cotton ocks" 
-                    productPrice="10.90"
-                    discountPrice="5.45"
-                    ImageSrc = "cotton-socks.png"
+                    <ProductDatils
+                        productName="Cotton ocks"
+                        productPrice="10.90"
+                        discountPrice="5.45"
+                        ImageSrc="cotton-socks.png"
                     />
 
-                    <ProductDatils 
-                    productName="Tennis balls" 
-                    productPrice="6.00"
-                    ImageSrc = "tennis-balls.png"
+                    <ProductDatils
+                        productName="Tennis balls"
+                        productPrice="6.00"
+                        ImageSrc="tennis-balls.png"
                     />
 
-                    <ProductDatils 
-                    productName="Plain T-Shirt" 
-                    productPrice="7.99"
-                    ImageSrc = "plain-t-shirt.png"
+                    <ProductDatils
+                        productName="Plain T-Shirt"
+                        productPrice="7.99"
+                        ImageSrc="plain-t-shirt.png"
                     />
                 </>
             )
         }
 
         const container = document.querySelector('.js-container');
-        ReactDOM.createRoot(container).render(<App/>);
-    </script>    
+        ReactDOM.createRoot(container).render(<App />);
+    </script>
 </body>
+
 </html>
