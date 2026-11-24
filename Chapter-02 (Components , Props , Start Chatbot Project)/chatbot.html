@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>ChatBot</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="js-container"></div>
 
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
@@ -11,114 +13,115 @@
     <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
-      
-        function ChatInput({sandMassages , setMassageFunction}) {
-            const [inputText , setInputText] = React.useState('')
-            
-            function saveInputText(event){
+
+        function ChatInput({ sandMassages, setMassageFunction }) {
+            const [inputText, setInputText] = React.useState('')
+
+            function saveInputText(event) {
                 setInputText(event.target.value)
             }
 
-            function sandMassgae(){
+            function sandMassgae() {
 
-            const newMassgae = [
-                ...sandMassages , {
-                    massage:inputText,
-                    sander:"user",
-                    id:crypto.randomUUID()
-                }
-            ]   
-            setMassageFunction(newMassgae)
+                const newMassgae = [
+                    ...sandMassages, {
+                        massage: inputText,
+                        sander: "user",
+                        id: crypto.randomUUID()
+                    }
+                ]
+                setMassageFunction(newMassgae)
 
-            const response = Chatbot.getResponse(inputText)
-            setMassageFunction([
-                ...newMassgae , {
-                    massage:response,
-                    sander:"robot",
-                    id:crypto.randomUUID()
-                }
-            ])
+                const response = Chatbot.getResponse(inputText)
+                setMassageFunction([
+                    ...newMassgae, {
+                        massage: response,
+                        sander: "robot",
+                        id: crypto.randomUUID()
+                    }
+                ])
 
-            setInputText('')
-          
-        }
+                setInputText('')
+
+            }
 
 
             return (
-                <>    
-                    <input type="text" placeholder="Sand Massage to ChatBot" size='40' onChange={saveInputText} value={inputText}/>
+                <>
+                    <input type="text" placeholder="Sand Massage to ChatBot" size='40' onChange={saveInputText} value={inputText} />
                     <button onClick={sandMassgae}>Submit</button>
-                </>    
-        )    
+                </>
+            )
         }
 
-        function ChatMassageHtml(props){
-            const {massage} = props;
-            const {sander} = props;
-                
+        function ChatMassageHtml(props) {
+            const { massage } = props;
+            const { sander } = props;
+
             return (
-                
+
                 <div>
-                    {sander === 'robot' && <img src="robot.png" width="50"/>}
+                    {sander === 'robot' && <img src="robot.png" width="50" />}
                     {massage}
-                    {sander === 'user' && <img src="user.png" width="50"/>}
-                        
+                    {sander === 'user' && <img src="user.png" width="50" />}
+
                 </div>
             )
         }
 
-        function ChatMassageData({sandMassages}){ 
+        function ChatMassageData({ sandMassages }) {
 
-        return (
-            <>
-                {sandMassages.map((ChatMassage)=>{
-                         return (
-                                <ChatMassageHtml 
-                                    massage={ChatMassage.massage}
-                                    sander={ChatMassage.sander}
-                                    key={ChatMassage.id}
-                                />
-                            )
-                })}
-            </>
-        )
-
-        }
-       
-
-        function App(){
-            const [sandMassages , setMassageFunction] = React.useState([{
-            massage:"hello I want a help",
-            sander:"user",
-            id:"id1"
-        },
-        {
-            massage:"flip a coin",
-            sander:"robot",
-            id:"id2"
-        },
-        {
-            massage:"head is my",
-            sander:"user",
-            id:"id3"
-        },
-        {
-            massage:"i Lost",
-            sander:"robot",
-            id:"id4"
-        }    
-        ]); 
-            
             return (
                 <>
-                    <ChatInput sandMassages={sandMassages} setMassageFunction={setMassageFunction}/>
+                    {sandMassages.map((ChatMassage) => {
+                        return (
+                            <ChatMassageHtml
+                                massage={ChatMassage.massage}
+                                sander={ChatMassage.sander}
+                                key={ChatMassage.id}
+                            />
+                        )
+                    })}
+                </>
+            )
+
+        }
+
+
+        function App() {
+            const [sandMassages, setMassageFunction] = React.useState([{
+                massage: "hello I want a help",
+                sander: "user",
+                id: "id1"
+            },
+            {
+                massage: "flip a coin",
+                sander: "robot",
+                id: "id2"
+            },
+            {
+                massage: "head is my",
+                sander: "user",
+                id: "id3"
+            },
+            {
+                massage: "i Lost",
+                sander: "robot",
+                id: "id4"
+            }
+            ]);
+
+            return (
+                <>
+                    <ChatInput sandMassages={sandMassages} setMassageFunction={setMassageFunction} />
                     <ChatMassageData sandMassages={sandMassages} />
                 </>
             )
         }
 
-      const container = document.querySelector('.js-container');
-      ReactDOM.createRoot(container).render(<App/>);
+        const container = document.querySelector('.js-container');
+        ReactDOM.createRoot(container).render(<App />);
     </script>
-  </body>
+</body>
+
 </html>
