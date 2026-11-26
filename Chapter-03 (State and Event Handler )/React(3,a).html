@@ -14,14 +14,27 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
 
-        function App() {
-            function sandConsole(){
-                console.log("Clicked");
-            }
+        function Button({ count , setCountFunction}){
+
+        function increseCount(){
+                setCountFunction(count+1)
+        }   
 
             return (
                 <>
-                    <button onClick={sandConsole}>Clicked 0 Times</button>
+                    <button onClick={increseCount}>Clicked {count} Times</button>
+                </>
+            )
+        }
+
+        function App() {
+            let [count , setCount] = React.useState(0)
+
+            
+
+            return (
+                <>
+                    <Button count={count} setCountFunction={setCount}/>
                 </>
             )
         }
