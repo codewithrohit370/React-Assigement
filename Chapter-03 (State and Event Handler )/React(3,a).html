@@ -22,7 +22,10 @@
 
             return (
                 <>
-                    <button onClick={increseCount}>Clicked {count} Times</button>
+                    <button 
+                        onClick={increseCount}>
+                        Clicked {count}{count == 1  ? "Time" : "Times"}
+                    </button>
                 </>
             )
         }
