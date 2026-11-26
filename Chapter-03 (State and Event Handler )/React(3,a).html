@@ -14,10 +14,10 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
 
-        function Button({ count , setCountFunction}){
+        function Counter({count , setCount}){
 
         function increseCount(){
-                setCountFunction(count+1)
+                setCount(count+1)
         }   
 
             return (
@@ -30,14 +30,18 @@
             )
         }
 
-        function App() {
-            let [count , setCount] = React.useState(0)
 
-            
+        function App() {
+            let [count , setCount] = React.useState(0)    
+            function reset(){
+                setCount(0)
+            }
 
             return (
                 <>
-                    <Button count={count} setCountFunction={setCount}/>
+                    <Counter count={count} setCount={setCount} />
+                    <Counter count={count} setCount={setCount}/>
+                    <button onClick={reset}>Reset</button>
                 </>
             )
         }
