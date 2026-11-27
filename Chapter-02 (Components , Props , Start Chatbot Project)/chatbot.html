@@ -16,13 +16,18 @@
 
         function ChatInput({ sandMassages, setMassageFunction }) {
             const [inputText, setInputText] = React.useState('')
+            const [isLoading , setLoading] = React.useState(false)
 
             function saveInputText(event) {
                 setInputText(event.target.value)
             }
 
-            function sandMassgae() {
-
+            async function sandMassgae() {
+                if(isLoading || inputText === ''){
+                    return;
+                }
+                setLoading(true)
+                setInputText('')
                 const newMassgae = [
                     ...sandMassages, {
                         massage: inputText,
@@ -32,7 +37,15 @@
                 ]
                 setMassageFunction(newMassgae)
 
-                const response = Chatbot.getResponse(inputText)
+                setMassageFunction([
+                    ...newMassgae, {
+                        massage: "Loading",
+                        sander: "robot",
+                        id: crypto.randomUUID()
+                    }
+                ])
+                
+                const response = await Chatbot.getResponseAsync(inputText)
                 setMassageFunction([
                     ...newMassgae, {
                         massage: response,
@@ -41,7 +54,7 @@
                     }
                 ])
 
-                setInputText('')
+                setLoading(false)
 
             }
 
